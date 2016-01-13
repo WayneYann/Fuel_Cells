@@ -26,18 +26,19 @@ n = 2;
 alpha = .48; %anodic transfer coefficient
 R = 8.314; %J/molK
 F = 96485; %A*s/mol
-eta = 0:N; %mV overpotential
-mVV = 10^3; %mV/V
-jL = 1000; %mV/cm^2 mass transport limiting current
-jK = jo*(exp(alpha*F/(R*T)/mVV*eta)-exp(-alpha*F/(R*T)/mVV*eta)); %kinetic current density
-jf = jo*(exp(alpha*F/(R*T)/mVV*eta)); %kinetic current of forward reaction
+eta2 = 0:0.001:(N/1000); %mV overpotential
+jL = 1000; %mA/cm^2 mass transport limiting current
+jK = jo*(exp(2*alpha*F/(R*T)*eta2)-exp(-2*alpha*F/(R*T)*eta2)); %kinetic current density
+jf = jo*(exp(2*alpha*F/(R*T)*eta2)); %kinetic current of forward reaction
 jVB = jK./(1+jf/jL);
 
 figure(2)
-plot(eta,jK,eta,jVB);
-xlabel('overpotential (mV)');
+plot(eta2,jK,eta2,jVB);
+xlabel('overpotential (V)');
 ylabel('current density (mA/cm^2)');
 legend('VB-kinetic current','VB-current')
 title('Data from Gasteiger')
 ylim([0 1200])
+
+%does not follow alpha = 2.3*RT/(b*F)
 
