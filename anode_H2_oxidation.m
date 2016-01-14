@@ -5,7 +5,7 @@ T = 274; %K
 n = 2;
 R = 8.314; %J/molK
 F = 96485; %A*s/mol
-eta = 0:0.001:(N/1000); %mV overpotential
+eta = 0:0.001:(N/1000); %V overpotential
 %Butler-Volmer with alpha = 0.48
 %{
 %Norskov 2005
@@ -22,7 +22,7 @@ ko = v*exp(-Ea/(kB*T));
 SA = 6.64*10^-16; %cm^2/atom
 jo = ko*e/SA;
 
-alpha = .4; %anodic transfer coefficient
+alpha = .65; %anodic transfer coefficient
 
 %Wang_2006
 jL = 1000; %mA/cm^2 mass transport limiting current
@@ -30,7 +30,7 @@ jK = jo*(exp(2*alpha*F/(R*T)*eta)-exp(-2*alpha*F/(R*T)*eta)); %kinetic current d
 jf = jo*(exp(2*alpha*F/(R*T)*eta)); %kinetic current of forward reaction
 jVB = jK./(1+jf/jL);
 
-figure(2)
+figure(3)
 plot(eta,jK,eta,jVB);
 xlabel('overpotential (V)');
 ylabel('current density (mA/cm^2)');
